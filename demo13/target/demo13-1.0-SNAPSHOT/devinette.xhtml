@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h1> Bonjour dans le devinette </h1>
+
+<h:form>
+    <h:outputLabel value="devinez la valeur : " />
+    <h:inputText value="#{dev.a}" binding="#{dev.input}"  />
+    <h:commandButton value="Entrer"  action="#{dev.updateButtons()}" binding="#{dev.enterbutton}" />
+    <h:outputText value="vous avez 3 chances !" binding="#{dev.output}" />
+    <h:commandButton value="Retry" disabled="true" action="#{dev.updateReloadButton}" binding="#{dev.retrybutton}"  />
+
+</h:form>
+</html>

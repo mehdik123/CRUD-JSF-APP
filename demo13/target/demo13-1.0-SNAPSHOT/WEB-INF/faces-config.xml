@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+              version="2.0">
+
+
+
+
+       <managed-bean>
+        <managed-bean-name>Employee</managed-bean-name>
+        <managed-bean-class>com.example.demo13.Employee</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>UserData</managed-bean-name>
+        <managed-bean-class>com.example.demo13.UserData</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <application>
+        <resource-bundle>
+            <base-name>i18n.messages</base-name>
+            <var>messages</var>
+        </resource-bundle>
+    </application>
+    <validator>
+        <validator-id>EmailValidator</validator-id>
+        <validator-class>com.example.demo13.EmailValidator</validator-class>
+        </validator>
+
+
+
+</faces-config>

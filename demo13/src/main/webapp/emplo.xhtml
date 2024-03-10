@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        .add-button {
+            background-color: black;
+            color: white;
+        }
+
+        .edit-button {
+            background-color: green;
+            color: white;
+        }
+
+        .delete-button {
+            background-color: red;
+            color: white;
+        }
+
+        .nav-button {
+            background-color: black;
+            color: white;
+        }
+        .lang-button {
+            background-color: black;
+            color: white;
+        }
+    </style>
+    <title>Gestion des Personnes</title>
+</h:head>
+
+<h:body>
+    <h:form>
+        <!-- Ajout du composant h:messages pour afficher les messages -->
+        <h:messages globalOnly="true" showDetail="true" showSummary="true" />
+
+        <h:commandButton value="#{messages.Add_New_Employee}" action="#{UserData.showAddForm()}" styleClass="add-button" rendered="#{not UserData.showAddForm}" />
+        <br>
+        </br>
+        <h:panelGroup rendered="#{UserData.showAddForm}">
+            <h3> <h:outputText value="#{messages.Add_New_Employee_form}"/></h3>
+            <table>
+                <tr>
+                    <td><h:outputText value="#{messages.name_add_form}"/></td>
+                    <td><h:inputText value="#{UserData.name}" /></td>
+                </tr>
+
+                <tr>
+                    <td><h:outputText value="#{messages.email_form}"/></td>
+                    <td>
+                        <h:inputText id="mail" value="#{UserData.email}">
+                            <f:validator validatorId="EmailValidator"/>
+                        </h:inputText>
+                        <h:message for="mail" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><h:commandButton value="#{messages.Add_New_Employee_form}" action="#{UserData.addEmployee()}" styleClass="add-button"/></td>
+                </tr>
+            </table>
+        </h:panelGroup>
+        <!-- Tableau des employés -->
+        <h:dataTable value="#{UserData.currentPageEmployees}" var="employee" class="table table-striped">
+            <h:column>
+                <f:facet name="header"> <h:outputText value="#{messages.name_column}"/></f:facet>
+                <h:inputText value="#{employee.name}" rendered="#{employee.edit}" />
+                <h:outputText value="#{employee.name}" rendered="#{not employee.edit}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header"><h:outputText value="#{messages.email_column}"/></f:facet>
+                <h:inputText id="x" value="#{employee.email}" rendered="#{employee.edit}" >
+                    <f:validator validatorId="EmailValidator"/>
+                </h:inputText>
+                <h:message for="x"/>
+                <h:outputText value="#{employee.email}" rendered="#{not employee.edit}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header"><h:outputText value="#{messages.Edit_column}"/></f:facet>
+                <h:commandButton value="#{messages.Edit_Button}" action="#{UserData.editEmployee(employee)}" styleClass="edit-button" rendered="#{not employee.edit}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header"><h:outputText value="#{messages.Delete_column}"/></f:facet>
+                <h:commandButton value="#{messages.Delete_Button}" action="#{UserData.deleteEmployee(employee)}" styleClass="delete-button"/>
+            </h:column>
+        </h:dataTable>
+        <br>
+        </br>
+        <h:commandButton value="#{messages.Save_changes}" action="#{UserData.saveEmployee()}" styleClass="nav-button" />
+        <br>
+        </br>
+        <h:panelGroup>
+            <h:commandButton value="#{messages.Previous_page}" action="#{UserData.previousPage}" styleClass="nav-button" rendered="#{UserData.currentPage gt 0}" />
+            <h:commandButton value="#{messages.Next_page}" action="#{UserData.nextPage}" styleClass="nav-button" rendered="#{UserData.currentPage lt (UserData.employees.size() / 5) - 1}" />
+        </h:panelGroup>
+        <br>
+        </br>
+        <h:commandButton value="#{messages.Change_Language}" action="#{UserData.changeLang()}" styleClass="nav-button"></h:commandButton>
+    </h:form>
+</h:body>
+</html>
